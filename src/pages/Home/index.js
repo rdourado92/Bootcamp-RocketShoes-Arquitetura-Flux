@@ -18,6 +18,7 @@ export default function Home() {
     }, {})
   );
   const dispatch = useDispatch();
+  const { addToCartRequest } = CartActions;
 
   async function loadData() {
     const response = await api.get('/products');
@@ -30,8 +31,8 @@ export default function Home() {
     setProducts(data);
   }
 
-  function addCart(product) {
-    dispatch(CartActions.addToCart(product));
+  function handleAddProduct(id) {
+    dispatch(addToCartRequest(id));
   }
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function Home() {
           <img src={product.image} alt={product.title} />
           <strong>{product.title}</strong>
           <span>{product.priceFormatted}</span>
-          <button type="button" onClick={e => addCart(product)}>
+          <button type="button" onClick={e => handleAddProduct(product.id)}>
             <div>
               <MdAddShoppingCart size={16} color="#FFF" />
               {amount[product.id] || 0}
