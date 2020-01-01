@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
   MdDelete,
+  MdShoppingCart,
 } from 'react-icons/md';
 
 import { formatPrice } from '../../util/format';
 import * as CartActions from '../../store/modules/cart/actions';
-import { Container, ProductTable, Total } from './styles';
+import { Container, ProductTable, Total, EmptyCart } from './styles';
 
 export default function Cart() {
   const cart = useSelector(state =>
@@ -33,6 +35,20 @@ export default function Cart() {
 
   function decrement(product) {
     dispatch(updateAmountRequest(product.id, product.amount - 1));
+  }
+
+  if (cart.length === 0) {
+    return (
+      <Container>
+        <EmptyCart>
+          <MdShoppingCart size={64} color="#7159c1" />
+          <p>Seu carrinho está vazio</p>
+          <footer>
+            <Link to="/">Voltar para a página principal</Link>
+          </footer>
+        </EmptyCart>
+      </Container>
+    );
   }
 
   return (

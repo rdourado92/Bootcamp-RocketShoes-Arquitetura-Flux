@@ -93,3 +93,30 @@ export const Total = styled.div`
     margin-left: 5px;
   }
 `;
+
+export const EmptyCart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    margin-bottom: 30px;
+  }
+
+  p {
+    color: #999;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  a {
+    background: #fff;
+    color: #7159c1;
+    border: 1px solid #7159c1;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+`;
