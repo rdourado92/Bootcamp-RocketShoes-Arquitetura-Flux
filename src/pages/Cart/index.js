@@ -25,14 +25,14 @@ export default function Cart() {
     )
   );
   const dispatch = useDispatch();
-  const { removeFromCart, updateAmount } = CartActions;
+  const { removeFromCart, updateAmountRequest } = CartActions;
 
   function increment(product) {
-    dispatch(updateAmount(product.id, product.amount + 1));
+    dispatch(updateAmountRequest(product.id, product.amount + 1));
   }
 
   function decrement(product) {
-    dispatch(updateAmount(product.id, product.amount - 1));
+    dispatch(updateAmountRequest(product.id, product.amount - 1));
   }
 
   return (
