@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
+import { FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
 import { formatPrice } from '../../util/format';
 import * as CartActions from '../../store/modules/cart/actions';
 
-import { ProductList } from './styles';
+import { ProductList, LoadDisplay } from './styles';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const amount = useSelector(state =>
     state.cart.reduce((amount, product) => {
       amount[product.id] = product.amount;
@@ -21,6 +23,7 @@ export default function Home() {
   const { addToCartRequest } = CartActions;
 
   async function loadData() {
+    setLoading(true);
     const response = await api.get('/products');
 
     const data = response.data.map(product => ({
@@ -29,6 +32,7 @@ export default function Home() {
     }));
 
     setProducts(data);
+    setLoading(false);
   }
 
   function handleAddProduct(id) {
@@ -38,6 +42,14 @@ export default function Home() {
   useEffect(() => {
     loadData();
   }, []);
+
+  if (loading) {
+    return (
+      <LoadDisplay>
+        <FaSpinner size={64} color="#7159c1" />
+      </LoadDisplay>
+    );
+  }
 
   return (
     <ProductList>

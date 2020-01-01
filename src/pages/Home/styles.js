@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
 
 export const ProductList = styled.ul`
@@ -64,5 +64,24 @@ export const ProductList = styled.ul`
         font-weight: bold;
       }
     }
+  }
+`;
+
+const rotate = keyframes`
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+`;
+
+export const LoadDisplay = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    animation: ${rotate} 2s linear infinite;
   }
 `;
